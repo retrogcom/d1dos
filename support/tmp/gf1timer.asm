@@ -1,0 +1,265 @@
+.386p
+	externdef _gf1_timer_init_data:near
+	externdef _gf1_adlib_control:near
+	externdef gf1_enter1_:near
+	externdef gf1_add_timer_handler_:near
+	externdef gf1_leave_:near
+	externdef _gf1_register_select:near
+	externdef outp_:near
+	externdef _gf1_data_high:near
+	externdef _gf1_timer_control:near
+	externdef _gf1_timer_data:near
+DGROUP group CONST, _DATA, _BSS
+_TEXT	segment para public use32 'CODE'
+	public gf1_timer_init_
+gf1_timer_init_:
+	db 055h
+	db 089h,0e5h
+	db 052h
+	db 0b4h,001h
+	db 031h,0d2h
+	db 088h,025h
+	dd _gf1_timer_init_data
+	db 089h,015h
+	dd _gf1_adlib_timer_mask
+	db 030h,0d2h
+	db 031h,0c0h
+	db 088h,015h
+	dd _gf1_adlib_control
+	db 08dh,065h,0fch
+	db 05ah
+	db 05dh
+	retn
+	public gf1_enable_timer2_
+gf1_enable_timer2_:
+	db 055h
+	db 089h,0e5h
+	db 053h
+	db 051h
+	db 089h,0c3h
+	db 089h,0d1h
+	db 066h,09ch
+	db 0fah
+	call	gf1_enter1_
+	db 0b8h,002h,000h,000h,000h
+	db 089h,0dah
+	call	gf1_add_timer_handler_
+	db 089h,0c3h
+	db 085h,0c0h
+	db 074h,00eh
+	call	gf1_leave_
+	db 066h,09dh
+	db 089h,0d8h
+	jmp	near ptr $+143
+	db 0bah,047h,000h,000h,000h
+	db 066h,0a1h
+	dd _gf1_register_select
+	call	outp_
+	db 031h,0c0h
+	db 089h,0cah
+	db 066h,0a1h
+	dd _gf1_data_high
+	call	outp_
+	db 080h,00dh
+	dd _gf1_adlib_control
+	db 008h
+	db 031h,0c0h
+	db 0bah,045h,000h,000h,000h
+	db 066h,0a1h
+	dd _gf1_register_select
+	call	outp_
+	db 031h,0d2h
+	db 031h,0c0h
+	db 08ah,015h
+	dd _gf1_adlib_control
+	db 066h,0a1h
+	dd _gf1_data_high
+	call	outp_
+	db 08ah,015h
+	dd _gf1_adlib_timer_mask
+	db 031h,0c0h
+	db 080h,0cah,002h
+	db 066h,0a1h
+	dd _gf1_timer_control
+	db 088h,015h
+	dd _gf1_adlib_timer_mask
+	db 0bah,004h,000h,000h,000h
+	call	outp_
+	db 031h,0c0h
+	db 08bh,015h
+	dd _gf1_adlib_timer_mask
+	db 066h,0a1h
+	dd _gf1_timer_data
+	call	outp_
+	call	gf1_leave_
+	db 066h,09dh
+	db 031h,0c0h
+	db 08dh,065h,0f8h
+	db 059h
+	db 05bh
+	db 05dh
+	retn
+	db 8bh,0c0h
+	public gf1_enable_timer1_
+gf1_enable_timer1_:
+	db 055h
+	db 089h,0e5h
+	db 053h
+	db 051h
+	db 089h,0c3h
+	db 089h,0d1h
+	db 066h,09ch
+	db 0fah
+	call	gf1_enter1_
+	db 0b8h,001h,000h,000h,000h
+	db 089h,0dah
+	call	gf1_add_timer_handler_
+	db 089h,0c3h
+	db 085h,0c0h
+	db 074h,00eh
+	call	gf1_leave_
+	db 066h,09dh
+	db 089h,0d8h
+	jmp	near ptr $+143
+	db 0bah,046h,000h,000h,000h
+	db 066h,0a1h
+	dd _gf1_register_select
+	call	outp_
+	db 031h,0c0h
+	db 089h,0cah
+	db 066h,0a1h
+	dd _gf1_data_high
+	call	outp_
+	db 080h,00dh
+	dd _gf1_adlib_control
+	db 004h
+	db 031h,0c0h
+	db 0bah,045h,000h,000h,000h
+	db 066h,0a1h
+	dd _gf1_register_select
+	call	outp_
+	db 031h,0d2h
+	db 031h,0c0h
+	db 08ah,015h
+	dd _gf1_adlib_control
+	db 066h,0a1h
+	dd _gf1_data_high
+	call	outp_
+	db 08ah,015h
+	dd _gf1_adlib_timer_mask
+	db 031h,0c0h
+	db 080h,0cah,001h
+	db 066h,0a1h
+	dd _gf1_timer_control
+	db 088h,015h
+	dd _gf1_adlib_timer_mask
+	db 0bah,004h,000h,000h,000h
+	call	outp_
+	db 031h,0c0h
+	db 08bh,015h
+	dd _gf1_adlib_timer_mask
+	db 066h,0a1h
+	dd _gf1_timer_data
+	call	outp_
+	call	gf1_leave_
+	db 066h,09dh
+	db 031h,0c0h
+	db 08dh,065h,0f8h
+	db 059h
+	db 05bh
+	db 05dh
+	retn
+	db 8bh,0c0h
+	public gf1_disable_timer1_
+gf1_disable_timer1_:
+	db 055h
+	db 089h,0e5h
+	db 052h
+	db 066h,09ch
+	db 0fah
+	call	gf1_enter1_
+	db 0b8h,001h,000h,000h,000h
+	db 031h,0d2h
+	call	gf1_add_timer_handler_
+	db 08ah,025h
+	dd _gf1_adlib_control
+	db 08ah,015h
+	dd _gf1_adlib_timer_mask
+	db 080h,0e4h,0fbh
+	db 080h,0e2h,0feh
+	db 088h,025h
+	dd _gf1_adlib_control
+	db 088h,015h
+	dd _gf1_adlib_timer_mask
+	db 031h,0c0h
+	db 0bah,045h,000h,000h,000h
+	db 066h,0a1h
+	dd _gf1_register_select
+	call	outp_
+	db 031h,0d2h
+	db 031h,0c0h
+	db 08ah,015h
+	dd _gf1_adlib_control
+	db 066h,0a1h
+	dd _gf1_data_high
+	call	outp_
+	call	gf1_leave_
+	db 066h,09dh
+	db 08dh,065h,0fch
+	db 05ah
+	db 05dh
+	retn
+	db 8bh,0c0h
+	public gf1_disable_timer2_
+gf1_disable_timer2_:
+	db 055h
+	db 089h,0e5h
+	db 052h
+	db 066h,09ch
+	db 0fah
+	call	gf1_enter1_
+	db 0b8h,002h,000h,000h,000h
+	db 031h,0d2h
+	call	gf1_add_timer_handler_
+	db 08ah,025h
+	dd _gf1_adlib_control
+	db 08ah,015h
+	dd _gf1_adlib_timer_mask
+	db 080h,0e4h,0f7h
+	db 080h,0e2h,0fdh
+	db 088h,025h
+	dd _gf1_adlib_control
+	db 088h,015h
+	dd _gf1_adlib_timer_mask
+	db 031h,0c0h
+	db 0bah,045h,000h,000h,000h
+	db 066h,0a1h
+	dd _gf1_register_select
+	call	outp_
+	db 031h,0d2h
+	db 031h,0c0h
+	db 08ah,015h
+	dd _gf1_adlib_control
+	db 066h,0a1h
+	dd _gf1_data_high
+	call	outp_
+	call	gf1_leave_
+	db 066h,09dh
+	db 08dh,065h,0fch
+	db 05ah
+	db 05dh
+	retn
+_TEXT	ends
+CONST	segment dword public use32 'DATA'
+block1:
+CONST	ends
+_DATA	segment dword public use32 'DATA'
+block2:
+_DATA	ends
+_BSS	segment para public use32 'BSS'
+block3:
+	public _gf1_adlib_timer_mask
+_gf1_adlib_timer_mask:
+	db 4 dup(?)
+_BSS	ends
+	end

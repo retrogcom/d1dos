@@ -1,0 +1,479 @@
+.386p
+	externdef outp_:near
+	externdef inp_:near
+	externdef _dos_read_:near
+	externdef _gf1_status:near
+	externdef _dos_close_:near
+	externdef lseek_:near
+	externdef _dos_open_:near
+	externdef _dos_setvect_:near
+	externdef _dos_getvect_:near
+	externdef gf1_os_getvect_:near
+	externdef gf1_os_setvect_:near
+DGROUP group CONST, _DATA, _BSS
+_TEXT	segment para public use32 'CODE'
+	public gf1_os_init_channel_
+gf1_os_init_channel_:
+	db 055h
+	db 089h,0e5h
+	db 053h
+	db 051h
+	db 056h
+	db 089h,0c3h
+	db 0c1h,0e0h,004h
+	db 001h,0d8h
+	db 005h
+	dd _gf1_os_dma_parms
+	db 066h,089h,050h,00fh
+	db 089h,0d3h
+	db 080h,0e3h,003h
+	db 030h,0f7h
+	db 083h,0fah,003h
+	db 07fh,023h
+	db 066h,0c7h,040h,009h,00ah,000h
+	db 066h,0c7h,040h,00bh,00bh,000h
+	db 066h,0c7h,040h,00dh,00ch,000h
+	db 089h,0d9h
+	db 001h,0d9h
+	db 066h,089h,048h,005h
+	db 066h,08bh,048h,005h
+	db 080h,0c9h,001h
+	jmp	$+40
+	db 066h,0c7h,040h,009h,0d4h,000h
+	db 066h,0c7h,040h,00bh,0d6h,000h
+	db 066h,0c7h,040h,00dh,0d8h,000h
+	db 089h,0d9h
+	db 0c1h,0e1h,002h
+	db 089h,0ceh
+	db 081h,0ceh,0c0h,000h,000h,000h
+	db 066h,089h,070h,005h
+	db 080h,0c9h,0c2h
+	db 066h,089h,048h,007h
+	db 088h,058h,001h
+	db 080h,0cbh,004h
+	db 088h,018h
+	db 08ah,014h,055h
+	dd _gf1_os_dma_page
+	db 088h,050h,002h
+	db 08dh,065h,0f4h
+	db 05eh
+	db 059h
+	db 05bh
+	db 05dh
+	retn
+	db 8dh,040h,0
+	public gf1_os_pgm_dma_
+gf1_os_pgm_dma_:
+	db 055h
+	db 089h,0e5h
+	db 056h
+	db 083h,0ech,010h
+	db 089h,0deh
+	db 089h,0c3h
+	db 0c1h,0e3h,004h
+	db 001h,0c3h
+	db 081h,0c3h
+	dd _gf1_os_dma_parms
+	db 066h,08bh,043h,00fh
+	db 024h,003h
+	db 030h,0e4h
+	db 009h,0c6h
+	db 066h,083h,07bh,00fh,004h
+	db 072h,032h
+	db 083h,0eah,002h
+	db 089h,0d0h
+	db 0d1h,0e8h
+	db 088h,045h,0f4h
+	db 031h,0c0h
+	db 0c1h,0eah,009h
+	db 066h,08bh,045h,008h
+	db 088h,055h,0ech
+	db 089h,0c2h
+	db 0d1h,0fah
+	db 0c1h,0f8h,009h
+	db 088h,055h,0f0h
+	db 088h,045h,0f8h
+	db 0f6h,0c1h,001h
+	db 074h,02ch
+	db 088h,0c4h
+	db 080h,0cch,080h
+	db 088h,065h,0f8h
+	jmp	$+36
+	db 088h,0d0h
+	db 0feh,0c8h
+	db 088h,045h,0f4h
+	db 08dh,042h,0ffh
+	db 0c1h,0e8h,008h
+	db 088h,045h,0ech
+	db 08ah,045h,008h
+	db 088h,045h,0f0h
+	db 031h,0c0h
+	db 066h,08bh,045h,008h
+	db 0c1h,0f8h,008h
+	db 088h,045h,0f8h
+	db 031h,0d2h
+	db 066h,09ch
+	db 0fah
+	db 08ah,013h
+	db 031h,0c0h
+	db 066h,08bh,043h,009h
+	call	outp_
+	db 031h,0d2h
+	db 031h,0c0h
+	db 066h,089h,0f2h
+	db 066h,08bh,043h,00bh
+	call	outp_
+	db 031h,0c0h
+	db 066h,08bh,043h,00dh
+	db 031h,0d2h
+	call	outp_
+	db 031h,0d2h
+	db 031h,0c0h
+	db 08ah,055h,0f0h
+	db 066h,08bh,043h,005h
+	call	outp_
+	db 031h,0d2h
+	db 031h,0c0h
+	db 08ah,055h,0f8h
+	db 066h,08bh,043h,005h
+	call	outp_
+	db 031h,0d2h
+	db 031h,0c0h
+	db 066h,089h,0cah
+	db 08ah,043h,002h
+	call	outp_
+	db 031h,0c0h
+	db 066h,08bh,043h,00dh
+	db 031h,0d2h
+	call	outp_
+	db 031h,0d2h
+	db 031h,0c0h
+	db 08ah,055h,0f4h
+	db 066h,08bh,043h,007h
+	call	outp_
+	db 031h,0d2h
+	db 031h,0c0h
+	db 08ah,055h,0ech
+	db 066h,08bh,043h,007h
+	call	outp_
+	db 031h,0d2h
+	db 08ah,053h,001h
+	db 031h,0c0h
+	db 066h,08bh,043h,009h
+	call	outp_
+	db 066h,09dh
+	db 08dh,065h,0fch
+	db 05eh
+	db 05dh
+	db 0c2h,004h,000h
+	public gf1_os_stop_dma_
+gf1_os_stop_dma_:
+	db 055h
+	db 089h,0e5h
+	db 052h
+	db 089h,0c2h
+	db 0c1h,0e0h,004h
+	db 001h,0d0h
+	db 005h
+	dd _gf1_os_dma_parms
+	db 031h,0d2h
+	db 08ah,010h
+	db 066h,08bh,040h,009h
+	db 025h,0ffh,0ffh,000h,000h
+	call	outp_
+	db 08dh,065h,0fch
+	db 05ah
+	db 05dh
+	retn
+	public gf1_os_dma_count_
+gf1_os_dma_count_:
+	db 055h
+	db 089h,0e5h
+	db 053h
+	db 051h
+	db 052h
+	db 089h,0c3h
+	db 0c1h,0e0h,004h
+	db 001h,0d8h
+	db 0bbh
+	dd _gf1_os_dma_parms
+	db 001h,0c3h
+	db 066h,09ch
+	db 0fah
+	db 031h,0c0h
+	db 066h,08bh,043h,00dh
+	db 031h,0d2h
+	call	outp_
+	db 031h,0c0h
+	db 066h,08bh,043h,007h
+	call	inp_
+	db 089h,0c2h
+	db 031h,0c0h
+	db 066h,08bh,043h,007h
+	call	inp_
+	db 089h,0c1h
+	db 066h,09dh
+	db 088h,0c8h
+	db 030h,0e4h
+	db 025h,0ffh,0ffh,000h,000h
+	db 030h,0f6h
+	db 0c1h,0e0h,008h
+	db 081h,0e2h,0ffh,0ffh,000h,000h
+	db 001h,0d0h
+	db 040h
+	db 025h,0ffh,0ffh,000h,000h
+	db 066h,083h,07bh,00fh,004h
+	db 072h,002h
+	db 001h,0c0h
+	db 08dh,065h,0f4h
+	db 05ah
+	db 059h
+	db 05bh
+	db 05dh
+	retn
+	db 8dh,040h,0
+	public gf1_os_file_read_
+gf1_os_file_read_:
+	db 055h
+	db 089h,0e5h
+	db 051h
+	db 056h
+	db 083h,0ech,004h
+	db 08dh,075h,0f4h
+	db 056h
+	db 031h,0f6h
+	db 08ch,0d9h
+	db 066h,089h,0deh
+	db 089h,0d3h
+	db 089h,0f2h
+	call	_dos_read_
+	db 066h,0a3h
+	dd _gf1_status
+	db 08bh,045h,0f4h
+	db 08dh,065h,0f8h
+	db 05eh
+	db 059h
+	db 05dh
+	retn
+	public gf1_os_file_close_
+gf1_os_file_close_:
+	db 055h
+	db 089h,0e5h
+	call	_dos_close_
+	db 066h,0a3h
+	dd _gf1_status
+	db 066h,085h,0c0h
+	db 074h,005h
+	db 0b8h,010h,000h,000h,000h
+	db 089h,0ech
+	db 05dh
+	retn
+	public gf1_os_file_seek_
+gf1_os_file_seek_:
+	db 055h
+	db 089h,0e5h
+	call	lseek_
+	db 085h,0c0h
+	db 07dh,009h
+	db 0b8h,010h,000h,000h,000h
+	db 089h,0ech
+	db 05dh
+	retn
+	db 031h,0c0h
+	db 089h,0ech
+	db 05dh
+	retn
+	db 090h
+	public gf1_os_file_open_
+gf1_os_file_open_:
+	db 055h
+	db 089h,0e5h
+	db 053h
+	db 052h
+	db 083h,0ech,004h
+	db 08dh,05dh,0f4h
+	db 031h,0d2h
+	call	_dos_open_
+	db 066h,0a3h
+	dd _gf1_status
+	db 066h,085h,0c0h
+	db 075h,005h
+	db 08bh,045h,0f4h
+	jmp	$+5
+	db 098h
+	db 0f7h,0d8h
+	db 08dh,065h,0f8h
+	db 05ah
+	db 05bh
+	db 05dh
+	retn
+	public gf1_os_setvect_
+gf1_os_setvect_:
+	db 055h
+	db 089h,0e5h
+	call	_dos_setvect_
+	db 089h,0ech
+	db 05dh
+	retn
+	public gf1_os_getvect_
+gf1_os_getvect_:
+	db 055h
+	db 089h,0e5h
+	call	_dos_getvect_
+	db 089h,0ech
+	db 05dh
+	retn
+	public gf1_os_set_irq_
+gf1_os_set_irq_:
+	db 055h
+	db 089h,0e5h
+	db 052h
+	db 056h
+	db 057h
+	db 083h,0ech,004h
+	db 089h,045h,0f0h
+	db 089h,0cfh
+	db 089h,0deh
+	db 08bh,04dh,0f0h
+	db 031h,0dbh
+	db 066h,09ch
+	db 0fah
+	db 066h,08bh,01ch,0cdh
+	dd _gf1_os_irq_table
+	db 089h,0d8h
+	call	gf1_os_getvect_
+	db 066h,089h,014h,0cdh
+	dd _gf1_os_irq_table + 06h
+	db 089h,004h,0cdh
+	dd _gf1_os_irq_table + 02h
+	db 089h,0d8h
+	db 089h,0f9h
+	db 089h,0f3h
+	call	gf1_os_setvect_
+	db 08ah,04dh,0f0h
+	db 0b2h,001h
+	db 080h,0e1h,007h
+	db 0d2h,0e2h
+	db 08bh,05dh,0f0h
+	db 0f6h,0d2h
+	db 083h,0fbh,007h
+	db 07fh,01eh
+	db 0b8h,021h,000h,000h,000h
+	call	inp_
+	db 025h,0ffh,000h,000h,000h
+	db 081h,0e2h,0ffh,000h,000h,000h
+	db 021h,0c2h
+	db 0b8h,021h,000h,000h,000h
+	jmp	$+30
+	db 0b8h,0a1h,000h,000h,000h
+	call	inp_
+	db 025h,0ffh,000h,000h,000h
+	db 081h,0e2h,0ffh,000h,000h,000h
+	db 021h,0c2h
+	db 0b8h,0a1h,000h,000h,000h
+	call	outp_
+	db 066h,09dh
+	db 08dh,065h,0f4h
+	db 05fh
+	db 05eh
+	db 05ah
+	db 05dh
+	retn
+	db 8bh,0c0h
+	public gf1_os_unset_irq_
+gf1_os_unset_irq_:
+	db 055h
+	db 089h,0e5h
+	db 053h
+	db 051h
+	db 052h
+	db 089h,0c3h
+	db 066h,09ch
+	db 0fah
+	db 083h,0fbh,002h
+	db 074h,04dh
+	db 088h,0d9h
+	db 0b2h,001h
+	db 080h,0e1h,007h
+	db 0d2h,0e2h
+	db 083h,0fbh,007h
+	db 07fh,01eh
+	db 0b8h,021h,000h,000h,000h
+	call	inp_
+	db 025h,0ffh,000h,000h,000h
+	db 081h,0e2h,0ffh,000h,000h,000h
+	db 009h,0c2h
+	db 0b8h,021h,000h,000h,000h
+	jmp	$+30
+	db 0b8h,0a1h,000h,000h,000h
+	call	inp_
+	db 025h,0ffh,000h,000h,000h
+	db 081h,0e2h,0ffh,000h,000h,000h
+	db 009h,0c2h
+	db 0b8h,0a1h,000h,000h,000h
+	call	outp_
+	db 031h,0c0h
+	db 066h,08bh,00ch,0ddh
+	dd _gf1_os_irq_table + 06h
+	db 066h,08bh,004h,0ddh
+	dd _gf1_os_irq_table
+	db 08bh,01ch,0ddh
+	dd _gf1_os_irq_table + 02h
+	call	gf1_os_setvect_
+	db 066h,09dh
+	db 08dh,065h,0f4h
+	db 05ah
+	db 059h
+	db 05bh
+	db 05dh
+	retn
+	db 8dh,040h,0
+	public gf1_os_eoi_
+gf1_os_eoi_:
+	db 055h
+	db 089h,0e5h
+	db 052h
+	db 066h,03dh,007h,000h
+	db 076h,00fh
+	db 0b8h,0a0h,000h,000h,000h
+	db 0bah,020h,000h,000h,000h
+	call	outp_
+	db 0b8h,020h,000h,000h,000h
+	db 089h,0c2h
+	call	outp_
+	db 08dh,065h,0fch
+	db 05ah
+	db 05dh
+	retn
+_TEXT	ends
+CONST	segment dword public use32 'DATA'
+block1:
+CONST	ends
+_DATA	segment dword public use32 'DATA'
+block2:
+	public _gf1_os_data1
+_gf1_os_data1:
+	db 000h,000h,000h,000h
+	public _gf1_os_dma_page
+_gf1_os_dma_page:
+	db 087h,000h,083h,000h,081h,000h,082h,000h,08fh,000h,08bh,000h
+	db 089h,000h,08ah,000h,000h,000h
+	public _gf1_os_irq_table
+_gf1_os_irq_table:
+	db 008h,000h,000h,000h,000h,000h,000h,000h,009h,000h
+	db 000h,000h,000h,000h,000h,000h,00ah,000h,000h,000h,000h,000h,000h,000h,00bh,000h
+	db 000h,000h,000h,000h,000h,000h,00ch,000h,000h,000h,000h,000h,000h,000h,00dh,000h
+	db 000h,000h,000h,000h,000h,000h,00eh,000h,000h,000h,000h,000h,000h,000h,00fh,000h
+	db 000h,000h,000h,000h,000h,000h,070h,000h,000h,000h,000h,000h,000h,000h,071h,000h
+	db 000h,000h,000h,000h,000h,000h,072h,000h,000h,000h,000h,000h,000h,000h,073h,000h
+	db 000h,000h,000h,000h,000h,000h,074h,000h,000h,000h,000h,000h,000h,000h,075h,000h
+	db 000h,000h,000h,000h,000h,000h,076h,000h,000h,000h,000h,000h,000h,000h,077h,000h
+	db 000h,000h,000h,000h,000h,000h
+_DATA	ends
+_BSS	segment para public use32 'BSS'
+block3:
+	public _gf1_os_dma_parms
+_gf1_os_dma_parms:
+	db 34 dup(?)
+_BSS	ends
+	end

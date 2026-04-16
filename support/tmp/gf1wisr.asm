@@ -1,0 +1,123 @@
+.386p
+	externdef __GETDS:near
+	externdef _gf1_irq:near
+	externdef gf1_os_eoi_:near
+	externdef _gf1_semaphore:near
+	externdef _gf1_flags:near
+	externdef gf1_process_interrupt_:near
+	externdef _gf1_midi_irq:near
+	externdef gf1_process_midi_interrupt_:near
+DGROUP group CONST, _DATA
+_TEXT	segment para public use32 'CODE'
+	public gf1_irq_service_
+gf1_irq_service_:
+	db 060h
+	db 01eh
+	db 006h
+	db 00fh,0a0h
+	db 00fh,0a8h
+	db 089h,0e5h
+	db 0fch
+	call	__GETDS
+	db 030h,0e4h
+	db 0a0h
+	dd _gf1_irq
+	db 025h,0ffh,0ffh,000h,000h
+	call	gf1_os_eoi_
+	db 066h,083h,03dh
+	dd _gf1_semaphore
+	db 000h
+	db 074h,013h
+	db 066h,08bh,01dh
+	dd _gf1_flags
+	db 080h,0cbh,002h
+	db 066h,089h,01dh
+	dd _gf1_flags
+	jmp	$+54
+	db 066h,0a1h
+	dd _gf1_semaphore
+	db 066h,0ffh,005h
+	dd _gf1_semaphore
+	db 01eh
+	db 007h
+	db 066h,083h,025h
+	dd _gf1_flags
+	db 0fdh
+	call	gf1_process_interrupt_
+	db 066h,0f7h,005h
+	dd _gf1_flags
+	db 002h,000h
+	db 075h,0e8h
+	db 066h,0a1h
+	dd _gf1_semaphore
+	db 066h,0ffh,00dh
+	dd _gf1_semaphore
+	db 00fh,0a9h
+	db 00fh,0a1h
+	db 007h
+	db 01fh
+	db 061h
+	db 0cfh
+	db 08dh,040h,000h
+	public gf1_midi_irq_service_
+gf1_midi_irq_service_:
+	db 060h
+	db 01eh
+	db 006h
+	db 00fh,0a0h
+	db 00fh,0a8h
+	db 089h,0e5h
+	db 0fch
+	call	__GETDS
+	db 030h,0e4h
+	db 0a0h
+	dd _gf1_midi_irq
+	db 025h,0ffh,0ffh,000h,000h
+	call	gf1_os_eoi_
+	db 083h,03dh
+	dd _gf1_midi_semaphore
+	db 000h
+	db 074h,013h
+	db 066h,08bh,015h
+	dd _gf1_flags
+	db 080h,0cah,008h
+	db 066h,089h,015h
+	dd _gf1_flags
+	jmp	$+60
+	db 0a1h
+	dd _gf1_midi_semaphore
+	db 0ffh,005h
+	dd _gf1_midi_semaphore
+	db 01eh
+	db 007h
+	db 066h,08bh,01dh
+	dd _gf1_flags
+	db 080h,0e3h,0f7h
+	db 066h,089h,01dh
+	dd _gf1_flags
+	call	gf1_process_midi_interrupt_
+	db 066h,08bh,00dh
+	dd _gf1_flags
+	db 0f6h,0c1h,008h
+	db 075h,0deh
+	db 0a1h
+	dd _gf1_midi_semaphore
+	db 0ffh,00dh
+	dd _gf1_midi_semaphore
+	db 00fh,0a9h
+	db 00fh,0a1h
+	db 007h
+	db 01fh
+	db 061h
+	db 0cfh
+_TEXT	ends
+CONST	segment dword public use32 'DATA'
+block1:
+CONST	ends
+_DATA	segment dword public use32 'DATA'
+block2:
+	public _gf1_midi_semaphore
+_gf1_midi_semaphore:
+	db 000h,000h,000h,000h
+_DATA	ends
+	end

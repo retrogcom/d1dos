@@ -1,0 +1,50 @@
+# Build artifacts
+*.obj
+*.OBJ
+*.err
+*.ERR
+*.map
+*.MAP
+*.sym
+*.SYM
+*.lnk
+*.bak
+*.BAK
+
+# Game data (copyrighted)
+*.HOG
+*.PIG
+*.DEM
+*.B50
+*.M50
+*.PHX
+*.CFG
+*.PLR
+*.INI
+DESCENT.FAQ
+
+# Watcom swap files
+*.SWP
+*.swp
+
+# Logs
+*.LOG
+*.log
+
+# Screenshots
+SCREEN*.PCX
+
+# Patch/setup binaries (distribution)
+SETUP.EXE
+PATCH.EXE
+PATCH.RTD
+PATCH.RTP
+PCXVIEW.EXE
+DOS4GW.EXE
+EDITDATA.EXE
+
+# Main game EXE (built output)
+DESCENTR.EXE
+
+# Original binary (for extraction — user must provide)
+original/
