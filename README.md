@@ -4,15 +4,10 @@ Build the original Descent 1 for DOS from source using Open Watcom 2.0.
 
 Based on [arbruijn/d1dos](https://github.com/arbruijn/d1dos) with patches for Open Watcom 2.0 compatibility.
 
-## Requirements
+## Build Requirements
 
 - **Open Watcom 2.0** — C compiler and linker ([github.com/open-watcom/open-watcom-v2](https://github.com/open-watcom/open-watcom-v2))
-
-
-## Runtime Requirements
-
-- **Descent 1.5 registered** — game data files
-- **DOS environment** — DOSBox-X, real DOS, or Windows with DOS4G/W
+- **Descent 1.5 DESCENTR.EXE** — placed in `original/`
 
 Pre-built engine libraries are included in the repo, so no additional tools are needed for a basic build.
 
@@ -28,7 +23,6 @@ Pre-built engine libraries are included in the repo, so no additional tools are 
 The pre-built .lib files in `lib/` and subsystem directories are sufficient for building the game. If you want to modify and rebuild the engine libraries (2d, 3d, texmap, etc.), you will additionally need:
 
 - **MASM 6.11** — for 94 assembly source files with MASM-specific syntax
-- **Descent 1.5 DESCENTR.EXE** — placed in `original/` for extracting HMI sound libraries via `binextr`
 
 ## Open Watcom 2.0 Changes
 
@@ -72,6 +66,6 @@ d1dos/
 
 ## Credits
 
-- Original source: Parallax Software Corporation (1993-1998)
+- Original source: Parallax Software Corporation (1998) https://github.com/historicalsource/descent
 - d1dos fork: [arbruijn](https://github.com/arbruijn/d1dos)
 - Open Watcom 2.0 patches: retrogcom
